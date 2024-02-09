@@ -27,9 +27,10 @@ class TestReview(unittest.TestCase):
 
     def test_updatedType(self):
         self.assertEqual(datetime, type(Review().updated_at))
+
     def test_args(self):
-          esr = Review(None)
-          self.assertNotIn(None, esr.__dict__.values())
+        esr = Review(None)
+        self.assertNotIn(None, esr.__dict__.values())
 
     def test_placeType(self):
         esr = Review()
@@ -53,13 +54,14 @@ class TestReview(unittest.TestCase):
         esr1 = Review()
         esr2 = Review()
         self.assertNotEqual(esr1.id, esr2.id)
+
     def test_kwargs(self):
-          esr = datetime.today()
-          dt_iso = esr.isoformat()
-          v = Review(id="355", created_at=dt_iso, updated_at=dt_iso)
-          self.assertEqual(v.id, "355")
-          self.assertEqual(v.created_at, esr)
-          self.assertEqual(v.updated_at, esr)
+        esr = datetime.today()
+        dt_iso = esr.isoformat()
+        v = Review(id="355", created_at=dt_iso, updated_at=dt_iso)
+        self.assertEqual(v.id, "355")
+        self.assertEqual(v.created_at, esr)
+        self.assertEqual(v.updated_at, esr)
 
     def test_DReviewsTime(self):
         esr1 = Review()
@@ -89,13 +91,15 @@ class TestReview(unittest.TestCase):
         RR = Review()
         with self.assertRaises(TypeError):
             RR.to_dict(None)
+
     def test_to_dictTYPe(self):
         self.assertTrue(dict, type(Review().to_dict()))
-	
+
     def testTOsave_arg(self):
         SS = Review()
         with self.assertRaises(TypeError):
-            SS.save(None)	
+            SS.save(None)
+
     def testNOarg(self):
         review = Review()
         self.assertIsInstance(review, Review)
@@ -118,9 +122,10 @@ class TestReview(unittest.TestCase):
     def testtodict_dunder_dict(self):
         R = Review()
         self.assertNotEqual(R.to_dict(), R.__dict__)
+
     def test_inequality(self):
-        review1 = Review(id='1', place_id='123', user_id='456', text='Great place!')
-        review2 = Review(id='2', place_id='456', user_id='789', text='Another place!')
+        review1 = Review(id="1", place_id="123", user_id="456", text="Great")
+        review2 = Review(id="2", place_id="456", user_id="789", text=" place!")
         self.assertNotEqual(review1, review2)
 
     def test_attributes_assignment(self):
@@ -135,5 +140,7 @@ class TestReview(unittest.TestCase):
     def test_instantiation_with_None_kwargs(self):
         with self.assertRaises(TypeError):
             Review(id=None, created_at=None, updated_at=None)
+
+
 if __name__ == "__main__":
     unittest.main()
