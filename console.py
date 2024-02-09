@@ -112,17 +112,16 @@ class HBNBCommand(cmd.Cmd):
 
         SP = shlex.split(arg)
 
-        N1 = SP[0]
-        if N1 not in self.CC:
-            print("** class doesn't exist **")
-
-        elif len(SP) == 0:
+        if len(SP) == 0:
             for key, value in D.items():
                 print([str(value)])
 
+        elif SP[0] not in self.CC:
+            print("** class doesn't exist **")
+
         else:
             for key, value in D.items():
-                if key.split(".")[0] == N1:
+                if key.split(".")[0] == SP[0]:
                     print([str(value)])
 
     def do_update(self, arg):
@@ -164,18 +163,6 @@ class HBNBCommand(cmd.Cmd):
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
 
-        arg_list = arg.split('.')
-
-        cls_nm = arg_list[0]
-
-        command = arg_list[1].split('(')
-
-        cmd_met = command[0]
-
-        e_arg = command[1].split(')')[0]
-
-        al = e_arg.split(',')
-
         argdict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -185,12 +172,18 @@ class HBNBCommand(cmd.Cmd):
         }
         match = re.search(r"\.", arg)
         if bool(match):
+            arg_list = arg.split('.')
+            cls_nm = arg_list[0]
             start, end = match.span()
             argl = [arg[:start], arg[end:]]
-
+            
             match = re.search(r"\((.*?)\)", argl[1])
             if bool(match):
                 start, end = match.span()
+                command = arg_list[1].split('(')
+                cmd_met = command[0]
+                e_arg = command[1].split(')')[0]
+                al = e_arg.split(',')
                 command_text = argl[1][:start]
                 command_argument = match.group()[1:-1]
                 command = [command_text, command_argument]
@@ -211,7 +204,13 @@ class HBNBCommand(cmd.Cmd):
                             argdict[cmd_met]("{} {} {} {}".format(cls_nm, ob, k, v))
                         return ""
 
-
+                    elif len(al) == 3:
+                        ob = al[0]
+                        ana = al[1:]
+                        for i in range(0, len(ana)):
+                            ana[i] = ana[i].lstrip()
+                            argdict[cmd_met]("{} {} {} {}".format(cls_nm, ob, ana[0], ana[1]))
+                        return ""
 
         print(f"*** Unknown syntax: {arg}")
 
