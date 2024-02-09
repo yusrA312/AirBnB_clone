@@ -2,7 +2,6 @@
 """
     TestReview
 """
-import os
 import models
 import unittest
 from datetime import datetime

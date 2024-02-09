@@ -163,7 +163,7 @@ class HBNBCommand(cmd.Cmd):
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
 
-        argdict = {
+        TT = {
             "all": self.do_all,
             "show": self.do_show,
             "destroy": self.do_destroy,
@@ -173,35 +173,35 @@ class HBNBCommand(cmd.Cmd):
         match = re.search(r"\.", arg)
         if bool(match):
             arg_list = arg.split(".")
-            cls_nm = arg_list[0]
+            clsS = arg_list[0]
             start, end = match.span()
-            argl = [arg[:start], arg[end:]]
+            arGl = [arg[:start], arg[end:]]
 
-            match = re.search(r"\((.*?)\)", argl[1])
+            match = re.search(r"\((.*?)\)", arGl[1])
             if bool(match):
                 start, end = match.span()
                 command = arg_list[1].split("(")
-                cmd_met = command[0]
+                cmet = command[0]
                 e_arg = command[1].split(")")[0]
                 al = e_arg.split(",")
-                command_text = argl[1][:start]
-                command_argument = match.group()[1:-1]
-                command = [command_text, command_argument]
+                cotext = arGl[1][:start]
+                coarg = match.group()[1:-1]
+                command = [cotext, coarg]
 
-                if cmd_met in argdict.keys():
-                    if cmd_met != "update":
-                        call = f"{argl[0]} {e_arg}"
-                        return argdict[cmd_met](call)
+                if cmet in TT.keys():
+                    if cmet != "update":
+                        call = f"{arGl[0]} {e_arg}"
+                        return TT[cmet](call)
                     elif len(al) >= 2 and re.search(r"\{.*?\}", e_arg):
                         ob = al[0]
                         ana = al[1:]
                         ana[0] = ana[0].lstrip()
                         for i in range(1, len(ana)):
                             ana[i] = "," + ana[i]
-                        joined_string = "".join(ana)
-                        result_dict = ast.literal_eval(joined_string)
+                        jostr = "".join(ana)
+                        result_dict = ast.literal_eval(jostr)
                         for k, v in result_dict.items():
-                            argdict[cmd_met]("{} {} {} {}".format(cls_nm, ob, k, v))
+                            TT[cmet]("{} {} {} {}".format(clsS, ob, k, v))
                         return ""
 
                     elif len(al) == 3:
@@ -209,8 +209,8 @@ class HBNBCommand(cmd.Cmd):
                         ana = al[1:]
                         for i in range(0, len(ana)):
                             ana[i] = ana[i].lstrip()
-                            argdict[cmd_met](
-                                "{} {} {} {}".format(cls_nm, ob, ana[0], ana[1])
+                            TT[cmet](
+                                "{} {} {} {}".format(clsS, ob, ana[0], ana[1])
                             )
                         return ""
 
@@ -222,7 +222,8 @@ class HBNBCommand(cmd.Cmd):
         """count()"""
 
         ar = shlex.split(arg)
-        count = sum(1 for x in storage.all().values() if ar[0] == x.__class__.__name__)
+        count = sum(1 for x in storage.all().values()
+                    if ar[0] == x.__class__.__name__)
         print(count)
 
 
