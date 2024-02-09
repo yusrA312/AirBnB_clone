@@ -60,12 +60,9 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("Review." + R.id, models.storage.all().keys())
         self.assertIn(R, models.storage.all().values())
 
-
-
     def test_rearg(self):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
-
 
     def test_inst(self):
         self.assertEqual(type(FileStorage()), FileStorage)
@@ -84,8 +81,5 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(models.storage), FileStorage)
 
 
-
-
-    
 if __name__ == "__main__":
     unittest.main()
