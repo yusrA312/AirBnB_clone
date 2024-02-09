@@ -16,6 +16,7 @@ from models.place import Place
 from models.review import Review
 import sys
 import json
+import ast
 
 
 class HBNBCommand(cmd.Cmd):
@@ -23,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
     hbnbcommand
     """
 
-    completekey = 'tab' 
+    completekey = 'tab'
     prompt = "(hbnb) "
     CC = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
 
@@ -117,12 +118,12 @@ class HBNBCommand(cmd.Cmd):
 
         elif len(SP) == 0:
             for key, value in D.items():
-                print(str(value))
+                print([str(value)])
 
         else:
             for key, value in D.items():
                 if key.split(".")[0] == N1:
-                    print(str(value))
+                    print([str(value)])
 
     def do_update(self, arg):
         """
@@ -159,9 +160,10 @@ class HBNBCommand(cmd.Cmd):
                 pass
             setattr(ineU, MYattributeName, MYname)
             storage.save()
+
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
-       
+
         arg_list = arg.split('.')
 
         cls_nm = arg_list[0]
@@ -197,19 +199,19 @@ class HBNBCommand(cmd.Cmd):
                     if cmd_met != "update":
                         call = f"{argl[0]} {e_arg}"
                         return argdict[cmd_met](call)
-                    else:
+                    elif len(al) >= 2 and re.search(r"\{.*?\}", e_arg):
                         ob = al[0]
                         ana = al[1:]
-                        print (ana)
-                        sana = ','.join(ana)
-                        try:
-                            dic = json.loads(sana)
-                            print(dic)
-                            print(type(dic))
-                            for k, v in dic.items():
-                                return argdict[cmd_met]("{} {} {} {}".format(cls_nm, ob, k, v))
-                        except json.JSONDecodeError:
-                            print("Error decoding the dictionary string.")
+                        ana[0] = ana[0].lstrip()
+                        for i in range(1, len(ana)):
+                            ana[i] = "," + ana[i]
+                        joined_string = ''.join(ana)
+                        result_dict =                                                                         ast.literal_eval(joined_string)
+                        for k, v in result_dict.items():
+                            argdict[cmd_met]("{} {} {} {}".format(cls_nm, ob, k, v))
+                        return ""
+
+
 
         print(f"*** Unknown syntax: {arg}")
 
@@ -220,8 +222,9 @@ class HBNBCommand(cmd.Cmd):
 
         ar = shlex.split(arg)
         count = sum(1 for x in storage.all().values()
-            if ar[0] == x.__class__.__name__)
+                    if ar[0] == x.__class__.__name__)
         print(count)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
