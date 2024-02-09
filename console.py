@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
     hbnbcommand
     """
 
-    completekey = 'tab'
+    completekey = "tab"
     prompt = "(hbnb) "
     CC = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
 
@@ -168,22 +168,22 @@ class HBNBCommand(cmd.Cmd):
             "show": self.do_show,
             "destroy": self.do_destroy,
             "update": self.do_update,
-            "count": self.do_count
+            "count": self.do_count,
         }
         match = re.search(r"\.", arg)
         if bool(match):
-            arg_list = arg.split('.')
+            arg_list = arg.split(".")
             cls_nm = arg_list[0]
             start, end = match.span()
             argl = [arg[:start], arg[end:]]
-            
+
             match = re.search(r"\((.*?)\)", argl[1])
             if bool(match):
                 start, end = match.span()
-                command = arg_list[1].split('(')
+                command = arg_list[1].split("(")
                 cmd_met = command[0]
-                e_arg = command[1].split(')')[0]
-                al = e_arg.split(',')
+                e_arg = command[1].split(")")[0]
+                al = e_arg.split(",")
                 command_text = argl[1][:start]
                 command_argument = match.group()[1:-1]
                 command = [command_text, command_argument]
@@ -198,8 +198,8 @@ class HBNBCommand(cmd.Cmd):
                         ana[0] = ana[0].lstrip()
                         for i in range(1, len(ana)):
                             ana[i] = "," + ana[i]
-                        joined_string = ''.join(ana)
-                        result_dict =                                                                         ast.literal_eval(joined_string)
+                        joined_string = "".join(ana)
+                        result_dict = ast.literal_eval(joined_string)
                         for k, v in result_dict.items():
                             argdict[cmd_met]("{} {} {} {}".format(cls_nm, ob, k, v))
                         return ""
@@ -209,7 +209,9 @@ class HBNBCommand(cmd.Cmd):
                         ana = al[1:]
                         for i in range(0, len(ana)):
                             ana[i] = ana[i].lstrip()
-                            argdict[cmd_met]("{} {} {} {}".format(cls_nm, ob, ana[0], ana[1]))
+                            argdict[cmd_met](
+                                "{} {} {} {}".format(cls_nm, ob, ana[0], ana[1])
+                            )
                         return ""
 
         print(f"*** Unknown syntax: {arg}")
@@ -220,8 +222,7 @@ class HBNBCommand(cmd.Cmd):
         """count()"""
 
         ar = shlex.split(arg)
-        count = sum(1 for x in storage.all().values()
-                    if ar[0] == x.__class__.__name__)
+        count = sum(1 for x in storage.all().values() if ar[0] == x.__class__.__name__)
         print(count)
 
 
