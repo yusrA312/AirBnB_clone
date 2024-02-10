@@ -68,20 +68,20 @@ class HBNBCommand(cmd.Cmd):
         Show
         """
         SP = shlex.split(arg)
-        N1 = SP[0]
-
-        if len(SP) == 0 or SP == "" or SP is None:
+        if len(SP) == 0 or len(SP) < 1:
             print("** class name missing **")
-        elif N1 not in self.CC:
-            print("** class doesn't exist **")
-        elif len(SP) < 2 or len(SP) == 1:
-            print("** instance id missing **")
         else:
-            K = "{}.{}".format(N1, SP[1])
-            if K in storage.all():
-                print(storage.all()[K])
+            if SP[0] not in self.CC:
+                print("** class doesn't exist **")
+            elif len(SP) < 2 or len(SP) == 1:
+                print("** instance id missing **")
             else:
-                print("** no instance found **")
+                K = "{}.{}".format(SP[2], SP[1])
+                if K in storage.all():
+                    print(storage.all()[K])
+                else:
+                    print("** no instance found **")
+        return
 
     def do_destroy(self, arg):
         """destroy"""
@@ -138,29 +138,25 @@ class HBNBCommand(cmd.Cmd):
             print("* class doesn't exist *")
         elif len(XX) < 2:
             print("* instance id missing *")
-        elif len(XX) < 3:
-            print("* attribute name missing *")
-        elif len(XX) < 4:
-            print("* value missing *")
         else:
             MYclassname, MYinstanceId, MYattributeName, MYname = XX[:4]
-
             K = f"{MYclassname}.{MYinstanceId}"
             DI = storage.all()
-
             ineU = DI.get(K)
-
             if ineU is None:
                 print("** no instance found **")
-                return
-
-            try:
-                AT = type(getattr(ineU, MYattributeName))
-                MYname = AT(MYname)
-            except AttributeError:
-                pass
-            setattr(ineU, MYattributeName, MYname)
-            storage.save()
+            elif len(XX) < 3:
+                print("* attribute name missing *")
+            elif len(XX) < 4:
+                print("* value missing *")
+            else:
+                try:
+                    AT = type(getattr(ineU, MYattributeName))
+                    MYname = AT(MYname)
+                except AttributeError:
+                    pass
+                setattr(ineU, MYattributeName, MYname)
+                storage.save()
 
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
@@ -226,7 +222,7 @@ class HBNBCommand(cmd.Cmd):
         ar = shlex.split(arg)
         if not ar:
             print("** class name missing **")
-        elif args[0] not in HBNBCommand.CC:
+        elif ar[0] not in self.CC:
             print("** class doesn't exist **")
         else:
 
