@@ -75,7 +75,12 @@ class TestHBNB(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.count()"))
             self.assertEqual("0", output.getvalue().strip())
+   	    
 
 
-if __name__ == "__main__":
+if __nat_emline(self):
+	        with patch("sys.stdout", new=StringIO()) as OO:
+			            self.assertFalse(HBNBCommand().onecmd(""))
+				                self.assertEqual("", OO.getvalue().strip())
+					   e__ == "__main__":
     unittest.main()
