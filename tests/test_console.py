@@ -9,7 +9,7 @@ from io import StringIO
 from unittest.mock import patch
 
 class TestHBNB(unittest.TestCase):
-    """Unittests for testing prompting of the HBNB command interpreter."""
+    """Unittests for testing."""
 
     def test_smissing_cla(self):
         MSG = "** class name missing **"
