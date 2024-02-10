@@ -133,11 +133,11 @@ class HBNBCommand(cmd.Cmd):
         XX = shlex.split(arg)
 
         if len(XX) == 0:
-            print("* class name missing *")
+            print("** class name missing **")
         elif XX[0] not in self.CC:
-            print("* class doesn't exist *")
+            print("** class doesn't exist **")
         elif len(XX) < 2:
-            print("* instance id missing *")
+            print("** instance id missing **")
         else:
             MYclassname, MYinstanceId, MYattributeName, MYname = XX[:4]
             K = f"{MYclassname}.{MYinstanceId}"
@@ -146,9 +146,9 @@ class HBNBCommand(cmd.Cmd):
             if ineU is None:
                 print("** no instance found **")
             elif len(XX) < 3:
-                print("* attribute name missing *")
+                print("** attribute name missing **")
             elif len(XX) < 4:
-                print("* value missing *")
+                print("** value missing **")
             else:
                 try:
                     AT = type(getattr(ineU, MYattributeName))
