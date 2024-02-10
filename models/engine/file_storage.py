@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """engine model"""
 
-
+import datetime
 import json
 from models.base_model import BaseModel
 import models
@@ -11,7 +11,7 @@ from models.amenity import Amenity
 from models.city import City
 from models.place import Place
 from models.review import Review
-
+import os
 
 class FileStorage:
     """FileStorage"""
@@ -45,5 +45,4 @@ class FileStorage:
             obj_dict = json.load(f)
             obj_dict = {k: self.classes()[v["__class__"]](**v)
                         for k, v in obj_dict.items()}
-            # TODO: should this overwrite or insert?
             FileStorage.__objects = obj_dict
