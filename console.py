@@ -26,7 +26,7 @@ class HBNBCommand(cmd.Cmd):
 
     completekey = "tab"
     prompt = "(hbnb) "
-    CC = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
+    CC = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
 
     def do_quit(self, arg):
         """
@@ -58,8 +58,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 SP = shlex.split(arg)
-                N = SP[0]
-                yues = eval(N)().id
+                yues = eval(sp[0])().id
                 print(yues)
                 storage.save()
 
@@ -133,11 +132,11 @@ class HBNBCommand(cmd.Cmd):
         XX = shlex.split(arg)
 
         if len(XX) == 0:
-            print("* class name missing *")
+            print("** class name missing **")
         elif XX[0] not in self.CC:
-            print("* class doesn't exist *")
+            print("** class doesn't exist **")
         elif len(XX) < 2:
-            print("* instance id missing *")
+            print("** instance id missing **")
         else:
             MYclassname, MYinstanceId, MYattributeName, MYname = XX[:4]
             K = f"{MYclassname}.{MYinstanceId}"
@@ -146,9 +145,9 @@ class HBNBCommand(cmd.Cmd):
             if ineU is None:
                 print("** no instance found **")
             elif len(XX) < 3:
-                print("* attribute name missing *")
+                print("** attribute name missing **")
             elif len(XX) < 4:
-                print("* value missing *")
+                print("** value missing **")
             else:
                 try:
                     AT = type(getattr(ineU, MYattributeName))
