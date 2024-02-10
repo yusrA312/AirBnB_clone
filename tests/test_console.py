@@ -69,7 +69,7 @@ class TestHBNB(unittest.TestCase):
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
                 self.assertFalse(HBNBCommand().onecmd(f"MyModel.{item}()"))
-                self.assertEqual(X, FF.getvalue().strip()))
+                self.assertEqual(X, FF.getvalue().strip())
 
 
 if __name__ == "__main__":
