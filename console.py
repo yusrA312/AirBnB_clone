@@ -51,16 +51,17 @@ class HBNBCommand(cmd.Cmd):
         """
         CREATE.
         """
-        SP = shlex.split(arg)
-        N = SP[0]
-        if not (SP):
+        if not arg:
             print("** class name missing **")
-        elif N not in self.CC:
-            print("** class doesn't exist **")
         else:
-            yues = eval(N)().id
-            print(yues)
-            storage.save()
+            if arg not in self.CC:
+                print("** class doesn't exist **")
+            else:
+                SP = shlex.split(arg)
+                N = SP[0]
+                yues = eval(N)().id
+                print(yues)
+                storage.save()
 
     def do_show(self, arg):
         """
@@ -90,19 +91,20 @@ class HBNBCommand(cmd.Cmd):
         if len(SP) == 0 or SP == "" or SP is None:
             print("** class name missing **")
             return
-        elif len(SP) == 1 or len(SP) < 2:
-            print("** instance id missing **")
-            return
-        elif SP[0] not in self.CC:
-            print("** class doesn't exist **")
-            return
         else:
-            key = SP[0] + "." + SP[1]
-            if key in D:
-                del D[key]
-                storage.save()
+            if SP[0] not in self.CC:
+                print("** instance id missing **")
+                return
+            elif len(SP) == 1 or len(SP) < 2:
+                print("** class doesn't exist **")
+                return
             else:
-                print("** no instance found **")
+                key = SP[0] + "." + SP[1]
+                if key in D:
+                    del D[key]
+                    storage.save()
+                else:
+                    print("** no instance found **")
 
     def do_all(self, arg):
         """
@@ -222,9 +224,15 @@ class HBNBCommand(cmd.Cmd):
         """count()"""
 
         ar = shlex.split(arg)
-        count = sum(1 for x in storage.all().values()
-                    if ar[0] == x.__class__.__name__)
-        print(count)
+        if not ar:
+            print("** class name missing **")
+        elif args[0] not in HBNBCommand.CC:
+            print("** class doesn't exist **")
+        else:
+
+            count = sum(1 for x in storage.all().values()
+                        if ar[0] == x.__class__.__name__)
+            print(count)
 
 
 if __name__ == "__main__":
