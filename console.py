@@ -93,10 +93,10 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             if SP[0] not in self.CC:
-                print("** instance id missing **")
+                print("** class doesn't exist **")
                 return
             elif len(SP) == 1 or len(SP) < 2:
-                print("** class doesn't exist **")
+                print("** instance id missing **")
                 return
             else:
                 key = SP[0] + "." + SP[1]
