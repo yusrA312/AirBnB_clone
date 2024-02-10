@@ -76,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
             elif len(SP) < 2 or len(SP) == 1:
                 print("** instance id missing **")
             else:
-                K = "{}.{}".format(SP[2], SP[1])
+                K = "{}.{}".format(SP[0], SP[1])
                 if K in storage.all():
                     print(storage.all()[K])
                 else:
