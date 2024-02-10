@@ -85,7 +85,7 @@ class TestCity(unittest.TestCase):
         self.assertNotIn("name", N.__dict__)
 
     def test_str_rep(self):
-        """ sec"""
+        """sec"""
         D = datetime.today()
         D_repr = repr(D)
         N = City()
@@ -98,7 +98,7 @@ class TestCity(unittest.TestCase):
         self.assertIn("'updated_at': " + D_repr, ST)
 
     def test_equal_of_ins(self):
-        """ sec"""
+        """sec"""
         D = datetime.today()
         D_IOS = D.isoformat()
         N = City(id="3333", created_at=D_IOS, updated_at=D_IOS)
@@ -107,7 +107,7 @@ class TestCity(unittest.TestCase):
         self.assertEqual(N.updated_at, D)
 
     def test_save(self):
-        """ sec"""
+        """sec"""
         N = City()
         F = N.updated_at
         N.save()
@@ -122,13 +122,13 @@ class TestCity(unittest.TestCase):
 
     def test_city_attr(self):
         N = City()
-        self.assertTrue(hasattr(N, 'state_id'))
-        self.assertTrue(hasattr(N, 'name'))
+        self.assertTrue(hasattr(N, "state_id"))
+        self.assertTrue(hasattr(N, "name"))
 
     def test_city_2(self):
-        N = City(state_id='SU', name='Khartum')
-        self.assertEqual(N.state_id, 'SU')
-        self.assertEqual(N.name, 'Khartum')
+        N = City(state_id="SU", name="Khartum")
+        self.assertEqual(N.state_id, "SU")
+        self.assertEqual(N.name, "Khartum")
 
 
 if __name__ == "__main__":

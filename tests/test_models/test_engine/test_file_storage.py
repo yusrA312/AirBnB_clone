@@ -16,7 +16,7 @@ from models.review import Review
 
 
 class TestFileStorage(unittest.TestCase):
-    """ FileStorage class."""
+    """FileStorage class."""
 
     def test_save(self):
         with self.assertRaises(TypeError):

@@ -88,7 +88,7 @@ class TestState(unittest.TestCase):
         self.assertLess(N1.updated_at, N2.updated_at)
 
     def test_str_rep(self):
-        """ sec"""
+        """sec"""
         D = datetime.today()
         D_repr = repr(D)
         N = State()
@@ -101,7 +101,7 @@ class TestState(unittest.TestCase):
         self.assertIn("'updated_at': " + D_repr, ST)
 
     def test_equal_of_ins(self):
-        """ sec"""
+        """sec"""
         D = datetime.today()
         D_IOS = D.isoformat()
         N = State(id="3333", created_at=D_IOS, updated_at=D_IOS)
@@ -110,7 +110,7 @@ class TestState(unittest.TestCase):
         self.assertEqual(N.updated_at, D)
 
     def test_save(self):
-        """ sec"""
+        """sec"""
         N = State()
         F = N.updated_at
         N.save()

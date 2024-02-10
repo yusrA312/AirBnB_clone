@@ -20,9 +20,9 @@ class TestBaseModel(unittest.TestCase):
     def test_new_instance(self):
         N = BaseModel()
         self.assertIsInstance(N, BaseModel)
-        self.assertTrue(hasattr(N, 'id'))
-        self.assertTrue(hasattr(N, 'created_at'))
-        self.assertTrue(hasattr(N, 'updated_at'))
+        self.assertTrue(hasattr(N, "id"))
+        self.assertTrue(hasattr(N, "created_at"))
+        self.assertTrue(hasattr(N, "updated_at"))
 
     def test_id_type(self):
         self.assertEqual(str, type(BaseModel().id))
@@ -46,7 +46,7 @@ class TestBaseModel(unittest.TestCase):
         N = BaseModel()
         STR = str(N)
         self.assertIsInstance(STR, str)
-        self.assertIn('BaseModel', STR)
+        self.assertIn("BaseModel", STR)
         self.assertIn(N.id, STR)
 
     def test_intTypeError(self):
@@ -100,7 +100,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertLess(N1.updated_at, N2.updated_at)
 
     def test_str_rep(self):
-        """ sec"""
+        """sec"""
         D = datetime.today()
         D_repr = repr(D)
         N = BaseModel()
@@ -113,7 +113,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("'updated_at': " + D_repr, ST)
 
     def test_equal_of_ins(self):
-        """ sec"""
+        """sec"""
         D = datetime.today()
         D_IOS = D.isoformat()
         N = BaseModel(id="3333", created_at=D_IOS, updated_at=D_IOS)
@@ -140,14 +140,14 @@ class TestBaseModel(unittest.TestCase):
         N = BaseModel()
         N1 = N.to_dict()
         self.assertIsInstance(N1, dict)
-        self.assertIn('__class__', N1)
-        self.assertIn('created_at', N1)
-        self.assertIn('updated_at', N1)
-        self.assertIn('id', N1)
-        self.assertEqual(N1['__class__'], 'BaseModel')
+        self.assertIn("__class__", N1)
+        self.assertIn("created_at", N1)
+        self.assertIn("updated_at", N1)
+        self.assertIn("id", N1)
+        self.assertEqual(N1["__class__"], "BaseModel")
 
     def test_save(self):
-        """ sec"""
+        """sec"""
         N = BaseModel()
         F = N.updated_at
         N.save()
