@@ -30,13 +30,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         """
-        quit
+        Quit command to exit the program.
         """
         return True
 
     def do_EOF(self, arg):
         """
-        EOF
+        EOF signal to exit the program.
         """
         print()
         return True
