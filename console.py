@@ -68,12 +68,12 @@ class HBNBCommand(cmd.Cmd):
         Show
         """
         SP = shlex.split(arg)
-        if len(SP) == 0 or len(SP) < 1:
+        if len(SP) == 0:
             print("** class name missing **")
         else:
             if SP[0] not in self.CC:
                 print("** class doesn't exist **")
-            elif len(SP) < 2 or len(SP) == 1:
+            elif len(SP) < 2:
                 print("** instance id missing **")
             else:
                 K = "{}.{}".format(SP[0], SP[1])
@@ -88,14 +88,14 @@ class HBNBCommand(cmd.Cmd):
         SP = shlex.split(arg)
         D = storage.all()
 
-        if len(SP) == 0 or SP == "" or SP is None:
+        if len(SP) == 0:
             print("** class name missing **")
             return
         else:
             if SP[0] not in self.CC:
                 print("** class doesn't exist **")
                 return
-            elif len(SP) == 1 or len(SP) < 2:
+            elif len(SP) < 2:
                 print("** instance id missing **")
                 return
             else:
