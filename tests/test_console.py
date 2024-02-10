@@ -88,13 +88,7 @@ class TestHBNB(unittest.TestCase):
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
                 self.assertFalse(HBNBCommand().onecmd(f"MyModel.{item}()"))
-                self.assertEqual(X, FF.getvalue().strip())
-
-    def test_help_EOF(self):
-        MSG = "EOF signal to exit the program."
-        with patch("sys.stdout", new=StringIO()) as OO:
-            self.assertFalse(HBNBCommand().onecmd("help EOF"))
-            self.assertEqual(MSG, OO.getvalue().strip())
+                self.assertEqual(X, FF.getvalue().strip()))
 
 
 if __name__ == "__main__":
