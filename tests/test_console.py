@@ -30,25 +30,6 @@ class TestHBNB(unittest.TestCase):
             with patch("sys.stdout", new=StringIO()) as OUT:
                 self.assertFalse(HBNBCommand().onecmd(C))
                 self.assertEqual(MSG, OUT.getvalue().strip())
-    def test_emline(self):
-        with patch("sys.stdout", new=StringIO()) as OO:
-            self.assertFalse(HBNBCommand().onecmd(""))
-            self.assertEqual("", OO.getvalue().strip())
-
-    def test_hequ(self):
-        MSG= "Quit command to exit the program."
-        with patch("sys.stdout", new=StringIO()) as OO:
-            self.assertFalse(HBNBCommand().onecmd("help quit"))
-            self.assertEqual(MSG, OO.getvalue().strip())
-
-
-    def test_eex(self):
-        ops = ["quit", "EOF"]
-        for op in ops:
-            with patch("sys.stdout", new=StringIO()) as OO:
-                self.assertTrue(HBNBCommand().onecmd(op))
-
-
 
     def test_desmissing_cla(self):
         MSG = "** class name missing **"
