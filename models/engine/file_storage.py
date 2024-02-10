@@ -30,18 +30,20 @@ class FileStorage:
 
     def save(self):
         """SAVE"""
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
-            d = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
-            json.dump(d, f)
+        jno = {}
+        for key in self.__objects:
+            jno[key] = self.__objects[key].to_dict()
+
+        with open(self.__file_path, "w") as F:
+            json.dump(jno, F)
 
     def reload(self):
         """reload"""
-        try:
-            with open(self.__file_path, "r", encoding="UTF8") as F:
-                ES = json.load(F)
-                self.__objects = {
-                    key: eval(value["__class__"])(**value)
-                    for key, value in ES.items()
-                }
-        except FileNotFoundError:
-            pass
+        if not os.path.isfile(FileStorage.__file_path):
+            return
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+            obj_dict = json.load(f)
+            obj_dict = {k: self.classes()[v["__class__"]](**v)
+                        for k, v in obj_dict.items()}
+            # TODO: should this overwrite or insert?
+            FileStorage.__objects = obj_dict
