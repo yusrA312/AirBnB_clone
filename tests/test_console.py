@@ -47,8 +47,27 @@ class TestHBNB(unittest.TestCase):
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
                 self.assertFalse(HBNBCommand().onecmd(f"{item} kkk"))
+                self.assertEqual(X, FF.getvalue().strip())  
+
+    def test_invalid_1(self):
+        items = ["create"]
+        for item in items:
+            X = f"*** Unknown syntax: kkk.{item}()"
+            with patch("sys.stdout", new=StringIO()) as FF:
+                self.assertFalse(HBNBCommand().onecmd(f"kkk.{item}()"))
                 self.assertEqual(X, FF.getvalue().strip())
 
-    
+    def test_mis_all(self):
+        X = "** class doesn't exist **"
+        items = ["count", "all"]
+        for item in items:
+            with patch("sys.stdout", new=StringIO()) as FF:
+                self.assertFalse(HBNBCommand().onecmd(f"MyModel.{item}()"))
+                self.assertEqual(X, FF.getvalue().strip())
+
+    def test_count_invalid_class(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("MyModel.count()"))
+            self.assertEqual("0", output.getvalue().strip())
 if __name__ == "__main__":
     unittest.main()
