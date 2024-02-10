@@ -8,12 +8,16 @@ from console import HBNBCommand
 from io import StringIO
 from unittest.mock import patch
 
+
 class TestHBNB(unittest.TestCase):
     """Unittests for testing."""
 
     def test_smissing_cla(self):
         MSG = "** class name missing **"
-        CO = ["show", ".show()", ]
+        CO = [
+            "show",
+            ".show()",
+        ]
         for C in CO:
             with patch("sys.stdout", new=StringIO()) as OUT:
                 self.assertFalse(HBNBCommand().onecmd(C))
@@ -26,6 +30,7 @@ class TestHBNB(unittest.TestCase):
             with patch("sys.stdout", new=StringIO()) as OUT:
                 self.assertFalse(HBNBCommand().onecmd(C))
                 self.assertEqual(MSG, OUT.getvalue().strip())
+
     def test_desmissing_cla(self):
         MSG = "** class name missing **"
         CO = ["destroy", ".destroy()"]
@@ -33,6 +38,7 @@ class TestHBNB(unittest.TestCase):
             with patch("sys.stdout", new=StringIO()) as OUT:
                 self.assertFalse(HBNBCommand().onecmd(C))
                 self.assertEqual(MSG, OUT.getvalue().strip())
+
     def test_mis_1(self):
         X = "** class doesn't exist **"
         items = ["all", "count"]
@@ -47,7 +53,7 @@ class TestHBNB(unittest.TestCase):
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
                 self.assertFalse(HBNBCommand().onecmd(f"{item} kkk"))
-                self.assertEqual(X, FF.getvalue().strip())  
+                self.assertEqual(X, FF.getvalue().strip())
 
     def test_invalid_1(self):
         items = ["create"]
@@ -69,5 +75,7 @@ class TestHBNB(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.count()"))
             self.assertEqual("0", output.getvalue().strip())
+
+
 if __name__ == "__main__":
     unittest.main()
