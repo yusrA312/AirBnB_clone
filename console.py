@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
         else:
-            MYclassname, MYinstanceId, MYattributeName, MYname = XX[:4]
+            MYclassname, MYinstanceId = XX[:2]
             K = f"{MYclassname}.{MYinstanceId}"
             DI = storage.all()
             ineU = DI.get(K)
@@ -151,6 +151,7 @@ class HBNBCommand(cmd.Cmd):
             elif len(XX) < 4:
                 print("** value missing **")
             else:
+                MYattributeName, MYname = XX[2:4]
                 try:
                     AT = type(getattr(ineU, MYattributeName))
                     MYname = AT(MYname)
