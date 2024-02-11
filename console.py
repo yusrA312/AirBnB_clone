@@ -137,6 +137,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(XX) < 2:
             print("** instance id missing **")
+            return
         else:
             MYclassname, MYinstanceId, MYattributeName, MYname = XX[:4]
             K = f"{MYclassname}.{MYinstanceId}"
@@ -146,6 +147,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
             elif len(XX) < 3:
                 print("** attribute name missing **")
+                return
             elif len(XX) < 4:
                 print("** value missing **")
             else:
