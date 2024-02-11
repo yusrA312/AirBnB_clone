@@ -25,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
-    CC = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
+    CC = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
 
     def do_quit(self, arg):
         """
