@@ -24,7 +24,6 @@ class HBNBCommand(cmd.Cmd):
     hbnbcommand
     """
 
-    completekey = "tab"
     prompt = "(hbnb) "
     CC = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
 
