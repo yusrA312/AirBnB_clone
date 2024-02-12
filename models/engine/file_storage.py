@@ -38,13 +38,18 @@ class FileStorage:
             json.dump(jno, F)
 
     def reload(self):
-        """reload"""
+        """Reloads objects from JSON file"""
         try:
-            with open(self.__file_path, "r", encoding="UTF8") as F:
-                ES = json.load(F)
-                self.__objects = {
-                    key: eval(value["__class__"])(**value)
-                    for key, value in ES.items()
-                }
+            with open(self.__file_path, "r", encoding="UTF8") as file:
+                loaded_dict = json.load(file)
+                self.__objects = {}
+                for key, value in loaded_dict.items():
+                    class_name = value["__class__"]
+                    if class_name == "BaseModel":
+                        cls = BaseModel
+                    else:
+                        cls = getattr(models, class_name)
+                    instance = cls(**value)
+                    self.__objects[key] = instance
         except FileNotFoundError:
             pass
