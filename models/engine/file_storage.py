@@ -40,16 +40,9 @@ class FileStorage:
     def reload(self):
         """Reloads objects from JSON file"""
         try:
-            with open(self.__file_path, "r", encoding="UTF8") as file:
-                loaded_dict = json.load(file)
-                self.__objects = {}
-                for key, value in loaded_dict.items():
-                    class_name = value["__class__"]
-                    if class_name == "BaseModel":
-                        cls = BaseModel
-                    else:
-                        cls = getattr(models, class_name)
-                    instance = cls(**value)
-                    self.__objects[key] = instance
+            with open(self.__file_path, 'r', encoding="UTF8") as f:
+                for key, value in json.load(f).items():
+                    att_value = eval(value["__class__"])(**value)
+                    self.__objects[key] = att_value
         except FileNotFoundError:
             pass
